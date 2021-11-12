@@ -14,6 +14,10 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
+## Demo
+
+You can view a deployed demo [here](https://dynamic-data-filtering.netlify.app)
+
 ## Details about solution
 
 My approach was to have a products data table that receives data via an observable that combines the information from the API (the json file in this case) with the applied filters.
@@ -30,6 +34,8 @@ I decided to add Angular Material for the usage of the Dialog and Datatable basi
 - Making the filters service more generic. This should be relatively simple, by making use of a generic type T to pass in to the DynamicFilter interface, which was created with thie generic type paremeter in mind for such improvement.
 
 - Implementing the pagination of the datatable, whether client or server side. Client side we would page locally by listening to the paginator events, and ideally data would also live in a state layer, so these events would dispatch to the store which would eventually trigger an observable to change with the fresh data. With server side a similar approach would ensue but we would be making http requests instead.
+
+- Add loading states to display when the data is being loaded / filtered
 
 - Overall styling can be improved, hiding the filters under a navigation drawer or a modal, making sure overwflows are handled nicely, improving the look of the table, etc.
 
