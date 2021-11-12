@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, shareReplay, take } from 'rxjs';
+import { map, Observable, shareReplay, startWith, take } from 'rxjs';
 import { Product } from '../types';
 
 @Injectable({

@@ -1,0 +1,17 @@
+<div class="filters-container">
+  <div class="filters-head">
+    FILTERS:
+    <button mat-raised-button color="primary" style="margin-left: auto">
+      ADD
+    </button>
+  </div>
+
+  <mat-card style="margin-bottom: 8px;" *ngFor="let filter of activeFilters$ | async">
+    <mat-card-title>{{ filter.dataProperty }}</mat-card-title>
+    <mat-card-subtitle>{{ filter.operator }} => {{ filter.value }}</mat-card-subtitle>
+    <mat-card-actions align="end">
+      <button mat-button>Edit</button>
+      <button mat-button>Remove</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
