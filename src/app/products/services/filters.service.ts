@@ -82,12 +82,6 @@ export class FiltersService {
       operator: 'contains',
       value: 'Avobenzone',
     },
-    // {
-    //   id: 'as7687h',
-    //   dataProperty: 'product_desc',
-    //   operator: 'contains',
-    //   value: 'test',
-    // },
   ]);
 
   activeFilters$: Observable<DynamicFilter<Product>[]> =
@@ -97,15 +91,28 @@ export class FiltersService {
 
   addFilter(filterToAdd: DynamicFilter<Product>) {
     const currentFilters = this.activeFiltersSubject.getValue();
-    const hasFilter = currentFilters.some(
-      (filter) => filter.id === filterToAdd.id
+
+    const nextValue = [...currentFilters, filterToAdd];
+
+    this.activeFiltersSubject.next(nextValue);
+  }
+
+  updateFilter(filterToUpdate: DynamicFilter<Product>) {
+    const currentFilters = this.activeFiltersSubject.getValue();
+
+    const nextValue = currentFilters.map((filter) =>
+      filter.id === filterToUpdate.id ? filterToUpdate : filter
     );
 
-    const nextValue = hasFilter
-      ? currentFilters.map((filter) =>
-          filter.id === filterToAdd.id ? filterToAdd : filter
-        )
-      : [...currentFilters, filterToAdd];
+    this.activeFiltersSubject.next(nextValue);
+  }
+
+  removeFilter(filterToRemove: DynamicFilter<Product>) {
+    const currentFilters = this.activeFiltersSubject.getValue();
+
+    const nextValue = currentFilters.filter(
+      (filter) => filter.id !== filterToRemove.id
+    );
 
     this.activeFiltersSubject.next(nextValue);
   }

@@ -1,0 +1,37 @@
+<div style="margin-bottom: 10px">
+  {{ isEdit ? 'Edit' : 'Add' }} Filter
+</div>
+
+<div [formGroup]="filterForm" style="display: flex; width: 100%">
+  <mat-form-field appearance="outline" style="flex: 1; margin: 0 5px">
+    <mat-label>Data Property</mat-label>
+    <mat-select					
+      formControlName="dataProperty">
+      <mat-option [value]="property" *ngFor="let property of availableProperties">
+        {{ property }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" style="flex: 1; margin: 0 5px">
+    <mat-label>Operator</mat-label>
+    <mat-select					
+      formControlName="operator">
+      <mat-option [value]="operator" *ngFor="let operator of availableOperators">
+        {{ operator }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" style="flex: 1; margin: 0 5px">
+    <mat-label>Value</mat-label>
+    <input matInput
+      type="text"
+      formControlName="value"
+    >
+  </mat-form-field>
+</div>
+
+<button mat-raised-button color="primary" (click)="saveForm(filterForm)" style="margin-left: auto">
+  Save
+</button>

@@ -9,9 +9,11 @@ import * as fromContainers from './containers';
 
 // components
 import * as fromComponents from './components';
+import { FilterFormComponent } from './components/filter-form/filter-form.component';
+import { FilterDialogComponent } from './components/filter-dialog/filter-dialog.component';
 
 @NgModule({
-  declarations: [...fromContainers.containers, ...fromComponents.components],
+  declarations: [...fromContainers.containers, ...fromComponents.components, FilterFormComponent, FilterDialogComponent],
   imports: [CommonModule, HttpClientModule, SharedModule],
   exports: [fromContainers.ProductsPageComponent],
 })
