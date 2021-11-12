@@ -1,5 +1,7 @@
-import { FiltersComponent } from './filters/filters.component';
+import { FilterFormComponent } from './filter-form/filter-form.component';
+import { ProductsDataTableComponent } from './products-data-table/products-data-table.component';
 
-export const components = [FiltersComponent];
+export const components = [FilterFormComponent, ProductsDataTableComponent];
 
-export * from './filters/filters.component';
+export * from './filter-form/filter-form.component';
+export * from './products-data-table/products-data-table.component';

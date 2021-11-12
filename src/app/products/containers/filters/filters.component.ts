@@ -65,4 +65,8 @@ export class FiltersComponent implements OnInit, OnDestroy {
         dialogRef.close();
       });
   }
+
+  removeFilter(filter: DynamicFilter<Product>) {
+    this.filtersService.removeFilter(filter);
+  }
 }

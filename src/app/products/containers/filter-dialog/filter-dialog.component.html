@@ -1,5 +1,6 @@
 <div>
   <app-filter-form
+    [filter]="data.filter"
     [availableProperties]="data.availableProperties"
     (create)="onCreateFilter($event)"
     (update)="onUpdateFilter($event)"

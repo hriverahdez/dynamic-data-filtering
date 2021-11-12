@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { combineLatest, map, Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { combineLatest, map, Observable, Subject, takeUntil } from 'rxjs';
 
 import { FiltersService } from '../../services/filters.service';
 import { ProductsDataService } from '../../services/products-data.service';
@@ -10,7 +10,7 @@ import { DynamicFilter, Product } from '../../types';
   templateUrl: './products-page.component.html',
   styleUrls: ['./products-page.component.scss'],
 })
-export class ProductsPageComponent implements OnInit {
+export class ProductsPageComponent implements OnInit, OnDestroy {
   productHeaders$: Observable<string[]> =
     this.productsDataService.productHeaders$;
   productHeaders: string[] = [];
@@ -32,18 +32,27 @@ export class ProductsPageComponent implements OnInit {
     })
   );
 
+  unsubscribeAll$: Subject<any> = new Subject();
+
   constructor(
     private productsDataService: ProductsDataService,
     private filtersService: FiltersService
   ) {}
 
   ngOnInit(): void {
-    this.filteredProducts$.subscribe((products) => {
-      this.products = products;
-    });
+    this.filteredProducts$
+      .pipe(takeUntil(this.unsubscribeAll$))
+      .subscribe((products) => {
+        this.products = products;
+      });
 
-    this.productHeaders$.subscribe(
-      (headers) => (this.productHeaders = headers)
-    );
+    this.productHeaders$
+      .pipe(takeUntil(this.unsubscribeAll$))
+      .subscribe((headers) => (this.productHeaders = headers));
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribeAll$.next(true);
+    this.unsubscribeAll$.complete();
   }
 }
