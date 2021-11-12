@@ -1,0 +1,14 @@
+<mat-table [dataSource]="dataSource">
+  <ng-container *ngFor="let header of productHeaders" [matColumnDef]="header">
+    <mat-header-cell *matHeaderCellDef>{{ header }}</mat-header-cell>
+    <mat-cell *matCellDef="let product">{{ product[header] }}</mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="productHeaders"></mat-header-row>
+
+  <mat-row *matRowDef="let row; columns: productHeaders"></mat-row>
+  
+</mat-table>
+
+<mat-paginator [pageSize]="20"></mat-paginator>
+
