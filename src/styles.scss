@@ -2,3 +2,52 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// helper classes
+
+.d-flex {
+  display: flex !important;
+}
+
+.w-full {
+  width: 100% !important;
+}
+
+/* Generate flex util classes */
+@mixin flex($amount) {
+  flex: $amount;
+}
+
+@for $i from 1 through 12 {
+  .flex-#{$i} {
+    @include flex($i);
+  }
+}
+
+/* Generate mb util classes */
+$base-unit: 4px;
+
+@mixin mb($amount, $type: null) {
+  $condition: if($type == null, '', #{-$type});
+
+  margin#{$condition}: $amount * $base-unit;
+}
+
+$margins: top, right, bottom, left;
+@each $margin in $margins {
+  @for $i from 1 through 10 {
+    .m#{$margin}-#{$i} {
+      @include mb($i, $margin);
+    }
+
+    .m-#{$i} {
+      @include mb($i)
+    }
+  }
+}
+
+@each $margin in $margins {
+  .m#{$margin}-auto {
+    margin#{-$margin}: auto !important;
+  }
+}

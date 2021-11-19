@@ -4,16 +4,21 @@ import { DynamicFilter, DynamicFilterOperator, Product } from '../types';
 
 type FilterFn = (data: Product[], filter: DynamicFilter<Product>) => Product[];
 
+const isNumber = (value: unknown): boolean => {
+  return typeof value === 'number';
+};
+
+const isString = (value: unknown): boolean => {
+  return typeof value === 'string';
+};
+
 const applyContains: FilterFn = (data, filter) => {
   const { dataProperty, value } = filter;
 
   return data.filter((product) => {
-    if (
-      typeof product[dataProperty] === 'string' &&
-      typeof value === 'string'
-    ) {
-      const stringValue = product[dataProperty] as string;
-      return stringValue.includes(value);
+    if (isString(product[dataProperty]) && isString(value)) {
+      const stringValue = product[dataProperty].toString();
+      return stringValue.includes(value.toString());
     }
 
     return true;
@@ -24,15 +29,12 @@ const applyEquals: FilterFn = (data, filter) => {
   const { dataProperty, value } = filter;
 
   return data.filter((product) => {
-    const isStringValue = typeof product[dataProperty] === 'string';
-    const isNumberValue = typeof product[dataProperty] === 'number';
-    const isStringFilterValue = typeof value === 'string';
-    const isNumberFilterValue = typeof value === 'number';
-    if (
-      (isStringValue && isStringFilterValue) ||
-      (isNumberValue && isNumberFilterValue)
-    ) {
-      return product[dataProperty] === value;
+    if (isString(product[dataProperty])) {
+      return product[dataProperty] === value.toString();
+    }
+
+    if (isNumber(product[dataProperty])) {
+      return product[dataProperty] === parseFloat(value.toString());
     }
 
     return true;
@@ -43,15 +45,10 @@ const applyGreaterEqual: FilterFn = (data, filter) => {
   const { dataProperty, value } = filter;
 
   return data.filter((product) => {
-    if (
-      typeof product[dataProperty] === 'number' &&
-      typeof value === 'number'
-    ) {
-      const numberValue = product[dataProperty] as number;
-      return value >= numberValue;
-    }
+    const numberFilterValue = parseFloat(value.toString());
+    const numberValue = parseFloat(product[dataProperty].toString());
 
-    return true;
+    return numberValue >= numberFilterValue;
   });
 };
 
@@ -59,15 +56,10 @@ const applyLessEqual: FilterFn = (data, filter) => {
   const { dataProperty, value } = filter;
 
   return data.filter((product) => {
-    if (
-      typeof product[dataProperty] === 'number' &&
-      typeof value === 'number'
-    ) {
-      const numberValue = product[dataProperty] as number;
-      return value <= numberValue;
-    }
+    const numberFilterValue = parseFloat(value.toString());
+    const numberValue = parseFloat(product[dataProperty].toString());
 
-    return true;
+    return numberValue <= numberFilterValue;
   });
 };
 

@@ -1,9 +1,9 @@
-<div style="margin-bottom: 10px">
+<div class="mbottom-2">
   {{ isEdit ? 'Edit' : 'Add' }} Filter
 </div>
 
-<div [formGroup]="filterForm" style="display: flex; width: 100%">
-  <mat-form-field appearance="outline" style="flex: 1; margin: 0 5px">
+<div [formGroup]="filterForm" class="d-flex w-full">
+  <mat-form-field appearance="outline" class="flex-1 mleft-1 mright-1">
     <mat-label>Data Property</mat-label>
     <mat-select					
       formControlName="dataProperty">
@@ -13,7 +13,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field appearance="outline" style="flex: 1; margin: 0 5px">
+  <mat-form-field appearance="outline" class="flex-1 mleft-1 mright-1">
     <mat-label>Operator</mat-label>
     <mat-select					
       formControlName="operator">
@@ -23,7 +23,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field appearance="outline" style="flex: 1; margin: 0 5px">
+  <mat-form-field appearance="outline" class="flex-1 mleft-1 mright-1">
     <mat-label>Value</mat-label>
     <input matInput
       type="text"
@@ -32,6 +32,6 @@
   </mat-form-field>
 </div>
 
-<button mat-raised-button color="primary" (click)="saveForm(filterForm)" style="margin-left: auto">
+<button mat-raised-button color="primary" (click)="saveForm(filterForm)">
   Save
 </button>
